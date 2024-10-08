@@ -1,6 +1,50 @@
 import cards
 import random
 
+from textual.app import App
+from textual.containers import ScrollableContainer, Horizontal, Center
+from textual.widgets import Header, Footer, Static, Button
+
+class PlayerHand(Static):
+
+    def compose(self):
+        yield ScrollableContainer(
+            Button(variant="primary"),
+            Button(variant="primary"),
+            Button(variant="primary"),
+            Button(variant="primary"),
+            id="hand"
+        )
+
+    def addCard(self):
+        new_card = Button(variant="primary")
+        self.query_one("#hand").mount(new_card)
+
+class GoFishApp(App):
+    BINDINGS = [
+        ("d", "toggle_dark_mode", "Toggle dark mode"),
+        ("a", "addCard", "Add Card"),
+    ]
+
+    CSS_PATH = "game.css"
+
+    def compose(self):
+        yield Header(show_clock=True)
+        yield Button()
+        yield PlayerHand()
+        yield Button()
+        yield Footer()
+    
+    def action_toggle_dark_mode(self):
+        self.dark = not self.dark
+
+    def action_addCard(self):
+        PlayerHand.addCard(self)
+
+    def action_removeCard(self):
+        PlayerHand.removeCard(self)
+
+GoFishApp().run()
 
 deck = cards.build_deck()
 

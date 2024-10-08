@@ -1,0 +1,19 @@
+PlayerHand {
+    background: $boost;
+    margin: 1;
+    padding: 1;
+}
+
+#hand {
+    layout: horizontal;
+    height: 10;
+    min-width: 2;
+}
+
+#hand Button {
+    layout: horizontal;
+    height: 8;
+    min-width: 2;
+    margin: 1;
+    padding: 1;
+}
